@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import useStorage from "../hooks/useStorage";
 import { motion } from "framer-motion";
+
+import useStorage from "../hooks/useStorage";
 import { FIRESTORE_COLLECTION_NAME } from "../firebase/config";
 
 const ProgressBar = ({ file, setFile }) => {
@@ -8,7 +9,7 @@ const ProgressBar = ({ file, setFile }) => {
 
   useEffect(() => {
     if (url) {
-      setFile(null)
+      setFile(null);
     }
   }, [url, setFile]);
 

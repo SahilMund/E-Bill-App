@@ -15,18 +15,19 @@ const Modal = ({ setSelectedImg, selectedImg }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
-      {/* <motion.img src={selectedImg} alt="enlarged pic" 
-        initial={{ y: "-100vh" }}
-        animate={{ y: 0 }}
-      /> */}
-
-      <motion.div class="pdf-container" style={{width : '70%', height:'70vh', margin:'0 30'}}>
-        <motion.iframe
+      <motion.div
+        className="pdf-container"
+        style={{ width: "70%", height: "70vh", margin: "0 30", cursor:'pointer' }}
+      >
+        
+        <iframe
           src={selectedImg}
           type="application/pdf"
           width="100%"
           height="100%"
-
+          title="pdfTItle"
+          initial={{ y: "-100vh" }}
+          animate={{ y: 0 }}
         />
       </motion.div>
     </motion.div>

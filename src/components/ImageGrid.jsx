@@ -1,18 +1,20 @@
-import React from "react";
-// import useFirestore from "../../hooks/useFirestore";
-
-import useFirestore from "../hooks/useFirestore";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+
+import useFirestore from "../hooks/useFirestore";
 import { deleteDoc, doc } from "firebase/firestore";
 import {
   FIRESTORE_COLLECTION_NAME,
   projectFireStore,
 } from "../firebase/config";
 import { deleteObject, getStorage, ref } from "firebase/storage";
+import Loader from "./Loader";
 
 const ImageGrid = ({ setSelectedImg }) => {
   const { docs } = useFirestore(FIRESTORE_COLLECTION_NAME);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleDelete = async (post) => {
     try {
@@ -35,50 +37,51 @@ const ImageGrid = ({ setSelectedImg }) => {
     }
   };
 
-  if(!docs){
-    return(
-      <motion.div
-      className="box"
-      animate={{
-        scale: [1, 2, 2, 1, 1],
-        rotate: [0, 0, 180, 180, 0],
-        borderRadius: ["0%", "0%", "50%", "50%", "0%"]
-      }}
-      transition={{
-        duration: 2,
-        ease: "easeInOut",
-        times: [0, 0.2, 0.5, 0.8, 1],
-        repeat: Infinity,
-        repeatDelay: 1
-      }}
-    />
-    )
+  useEffect(() => {
+    const tOutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+    return () => {
+      clearTimeout(tOutId);
+    };
+  }, [isLoading]);
+
+  if (isLoading) {
+    return <Loader />;
   }
   return (
-    <div className="img-grid">
-
+    <div className="file-grid">
       {docs &&
         docs?.map((doc) => (
           <motion.div key={doc.id}>
-            <DeleteForeverIcon width={20} onClick={() => handleDelete(doc)} />
+            <DeleteForeverIcon
+              width={20}
+              style={{ color: "crimson" }}
+              title="Remove"
+              onClick={() => handleDelete(doc)}
+            />
+
+            <RemoveRedEyeIcon
+              width={20}
+              style={{ color: "#637381" }}
+              onClick={() => setSelectedImg(doc.fileURL)}
+            />
             <motion.div
-              className="img-wrap"
+              className="file-wrap"
               key={doc.id}
               layout
               whileHover={{ opacity: 1 }}
-              onClick={() => setSelectedImg(doc.imageURL)}
             >
-             
-              <motion.iframe
-                src={doc.imageURL}
+              <iframe
+                src={doc.fileURL}
                 height="200"
                 width="300"
                 title="Iframe Example"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1 }}
-                
-              ></motion.iframe>
+              />
             </motion.div>
           </motion.div>
         ))}

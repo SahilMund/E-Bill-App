@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap");
 
 :root {
   --primary: #efb6b2 !important;
@@ -10,20 +10,44 @@
 body {
   font-family: "Noto Serif";
   color: var(--secondary);
+  width: 100%;
+  overflow-x: hidden;
+  margin: 0;
 }
 
 .darkmode {
   background-color: #202124;
   color: white;
-  width: 100%;
+}
+
+.App {
+  text-align: center;
+  height:101vh;
+  margin-top: -2%;
+
+}
+
+
+.box {
+  width: 100px;
+  height: 100px;
+  background: var(--primary);
+  margin: 0 47%;
+}
+
+svg{
+  cursor: pointer;
 }
 
 .galleryHome {
   /* max-width: 960px; */
-  margin: 0 auto;
+  /* margin: 0 auto; */
+  height: 100vh;
+
 }
 
 .title h1 {
+  padding-top: 2%;
   color: var(--primary);
   font-size: 2.2rem;
   letter-spacing: 4px;
@@ -45,7 +69,6 @@ form {
   margin: 30px auto 10px;
   text-align: center;
 }
-
 
 #uploadLabel input {
   height: 0;
@@ -108,30 +131,26 @@ form {
 }
 
 /* image grid styles */
-.img-grid {
+.file-grid {
   margin: 20px auto;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 40px;
   max-width: 960px;
   padding-bottom: 4%;
-
-}
-.img-grid svg{
-  color: crimson;
-  float: right;
 }
 
-.img-wrap {
+
+.file-wrap {
   overflow: hidden;
-  height: 0;
-  padding: 50% 0;
+  /* height: 0;
+  padding: 50% 0; */
   /* padding controls height, will always be perfectly square regardless of width */
   position: relative;
   opacity: 0.8;
 }
 
-.img-wrap img {
+.file-wrap file {
   min-width: 100%;
   min-height: 100%;
   max-width: 150%;
@@ -140,6 +159,10 @@ form {
   left: 0;
 }
 
+
+iframe{
+  cursor: pointer;
+}
 /* modal styles */
 .backdrop {
   position: fixed;
@@ -150,7 +173,7 @@ form {
   background: rgba(0, 0, 0, 0.5);
 }
 
-.backdrop img {
+.backdrop file {
   display: block;
   max-width: 60%;
   max-height: 80%;
@@ -160,8 +183,8 @@ form {
 }
 
 /* for respnosiveness */
-@media (max-width:460px) {
-  .img-grid {
+@media (max-width: 460px) {
+  .file-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, 300px);
     justify-content: center;
@@ -169,8 +192,17 @@ form {
     margin: 20px auto;
   }
 
-  .backdrop img {
+  .backdrop file {
     max-width: 90%;
     margin: 100px auto;
   }
+}
+
+
+
+
+
+.file-grid-icons{
+  display: flex;
+  flex-direction: column;
 }
