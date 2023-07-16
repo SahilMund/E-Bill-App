@@ -10,11 +10,9 @@ import {
   projectFireStore,
 } from "../firebase/config";
 import { deleteObject, getStorage, ref } from "firebase/storage";
-import Loader from "./Loader";
 
 const ImageGrid = ({ setSelectedImg }) => {
   const { docs } = useFirestore(FIRESTORE_COLLECTION_NAME);
-  const [isLoading, setIsLoading] = useState(true);
 
   const handleDelete = async (post) => {
     try {
@@ -37,19 +35,7 @@ const ImageGrid = ({ setSelectedImg }) => {
     }
   };
 
-  useEffect(() => {
-    const tOutId = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
 
-    return () => {
-      clearTimeout(tOutId);
-    };
-  }, [isLoading]);
-
-  if (isLoading) {
-    return <Loader />;
-  }
   return (
     <div className="file-grid">
       {docs &&
